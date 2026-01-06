@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T.R. Ward for District 8 | Sullivan County Commission</title>
+    <meta name="description"
+        content="T.R. Ward for Sullivan County Commission District 8. A movement built for every family, every town, and every future in Sullivan County.">
+
+    <!-- SEO Schema for Political Campaign -->
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "PoliticalCandidate",
+      "name": "T.R. Ward",
+      "jobTitle": "Candidate for County Commission",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Sullivan County Commission"
+      },
+      "url": "https://wardforsullivan.com",
+      "image": "YOUR_IMAGE_URL_HERE",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Sullivan County",
+        "addressRegion": "TN",
+        "addressCountry": "US"
+      }
+    }
+    </script>
+
+    <!-- Tailwind CSS (For Layout & Styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'campaign-blue': '#0a4f80',
+                        'campaign-green': '#88be3c',
+                        'campaign-dark': '#0f172a',
+                        'campaign-gray': '#f3f4f6'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        display: ['Oswald', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Custom Styles & Animation Helpers */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .font-display {
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .clip-text {
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Navigation Hover Effect */
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #88be3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Wheel Animation Config */
+        .wheel-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wheel-text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #0a4f80;
+        }
+
+        /* Hero Video Background */
+        .video-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .video-bg-container iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 177.77777778vh;
+            height: 56.25vw;
+            /* 16:9 Aspect Ratio */
+            min-width: 100%;
+            min-height: 100%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        @media (min-aspect-ratio: 16/9) {
+            .video-bg-container iframe {
+                height: 56.25vw;
+                width: 100vw;
+            }
+        }
+
+        @media (max-aspect-ratio: 16/9) {
+            .video-bg-container iframe {
+                height: 100vh;
+                width: 177.78vh;
+            }
+        }
+
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+
+        .loader-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            color: #0a4f80;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Silhouette Background */
+        .silhouette-bg {
+            background-image: url('clay-banks-TNyXekmNw8c-unsplash.jpg');
+            background-size: cover;
+            background-position: center bottom;
+            background-attachment: fixed;
+            will-change: transform;
+            /* Optimize for parallax */
+        }
+
+        /* Text Reveal Utilities */
+        .reveal-mask {
+            overflow: hidden;
+            display: block;
+        }
+
+        .reveal-text {
+            transform: translateY(110%);
+            display: block;
+            opacity: 0;
+        }
+
+        /* Button Hover Enhancement */
+        .btn-animated {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn-animated::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: width 0.3s ease;
+        }
+
+        .btn-animated:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-campaign-dark">
+
+    <!-- 1. PRELOADER -->
+    <div id="preloader">
+        <div class="loader-text text-center font-bold uppercase">
+            <span class="block text-campaign-blue mb-2 text-2xl">Sullivan County Forward</span>
+            <span class="block text-sm text-campaign-green tracking-widest">Starting in District 8 • 2026</span>
+        </div>
+    </div>
+
+    <!-- 2. NAVIGATION -->
+    <header
+        class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300 transform -translate-y-full"
+        id="main-header">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo Area -->
+            <a href="/" class="flex items-center gap-3 group">
+                <!-- User Logo: Replace src with actual URL inside Shopify -->
+                <img src="Attachment-1.jpeg" alt="T.R. Ward Logo" class="h-12 w-auto object-contain">
+                <div class="leading-tight hidden sm:block">
+                    <span
+                        class="block font-display font-bold text-campaign-blue text-xl tracking-wide group-hover:text-campaign-green transition-colors">T.R.
+                        WARD</span>
+                    <span
+                        class="block text-xs font-bold text-campaign-green tracking-wider uppercase group-hover:text-campaign-blue transition-colors">For
+                        District 8</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold uppercase tracking-wider text-gray-700">
+                <a href="#hero" class="nav-link text-campaign-blue">Home</a>
+                <a href="/pages/why-im-running" class="nav-link hover:text-campaign-blue transition">Why I’m Running</a>
+                <a href="/pages/district-map" class="nav-link hover:text-campaign-blue transition">District Map</a>
+                <a href="/pages/calendar" class="nav-link hover:text-campaign-blue transition">2026 Calendar</a>
+                <a href="/pages/register" class="nav-link hover:text-campaign-blue transition">Register</a>
+                <a href="#contact"
+                    class="px-5 py-2 bg-campaign-blue text-white rounded-full hover:bg-campaign-green transition duration-300 shadow-lg btn-animated">Let's
+                    Talk</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button class="lg:hidden text-campaign-blue text-2xl"
+                onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white absolute w-full shadow-xl border-t border-gray-100">
+            <nav class="flex flex-col p-6 gap-4 text-center font-bold uppercase text-gray-700">
+                <a href="#hero" class="py-2 border-b border-gray-100">Home</a>
+                <a href="/pages/why-im-running" class="py-2 border-b border-gray-100">Why I’m Running</a>
+                <a href="/pages/district-map" class="py-2 border-b border-gray-100">District Map</a>
+                <a href="/pages/calendar" class="py-2 border-b border-gray-100">2026 Calendar</a>
+                <a href="/pages/register" class="py-2 border-b border-gray-100">Register</a>
+                <a href="/pages/know-your-district" class="py-2 border-b border-gray-100">Know Your District</a>
+                <a href="#contact" class="py-2 text-campaign-blue">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 3. HERO VIDEO SECTION -->
+    <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Video Background -->
+        <div class="video-bg-container">
+            <iframe
+                src="https://www.youtube.com/embed/x4QiDOa5_kw?autoplay=1&mute=1&loop=1&playlist=x4QiDOa5_kw&controls=0&showinfo=0&rel=0&enablejsapi=1"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- Dark Overlay -->
+        <div class="absolute inset-0 bg-campaign-blue/70 mix-blend-multiply z-0"></div>
+        <div class="absolute inset-0 bg-black/30 z-0"></div>
+
+        <!-- Hero Content -->
+        <div class="container mx-auto px-6 relative z-10 text-center text-white mt-16">
+            <div class="hero-content">
+                <div class="mb-4 overflow-hidden">
+                    <h2
+                        class="font-display font-bold text-lg md:text-2xl tracking-[0.2em] text-campaign-green uppercase hero-stagger opacity-0 translate-y-10">
+                        2026 Campaign
+                    </h2>
+                </div>
+
+                <!-- Main Headline with Masked Reveal -->
+                <h1
+                    class="font-display font-bold text-4xl md:text-6xl lg:text-7xl leading-tight mb-6 shadow-black drop-shadow-lg">
+                    <span class="reveal-mask"><span class="reveal-text hero-title-line">FROM DISTRICT 8 TO</span></span>
+                    <span class="reveal-mask"><span class="reveal-text hero-title-line">EVERY ROAD IN SULLIVAN
+                            COUNTY</span></span>
+                </h1>
+
+                <p
+                    class="font-sans text-lg md:text-xl font-medium max-w-3xl mx-auto mb-10 text-gray-100 hero-stagger opacity-0 translate-y-10 leading-relaxed">
+                    It's time for leadership that doesn't just talk, but acts. We are here to fix what’s broken,
+                    strengthen what works, and deliver results that reach every corner of the county.
+                    <span class="block mt-4 font-bold text-white text-xl">Real Change. Real Results. Unwavering
+                        Accountability.</span>
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center hero-stagger opacity-0 translate-y-10">
+                    <a href="/pages/why-im-running"
+                        class="px-8 py-4 bg-campaign-green text-white font-bold rounded-none hover:bg-white hover:text-campaign-green transition duration-300 uppercase tracking-wider shadow-lg btn-animated">
+                        Our Vision
+                    </a>
+                    <a href="#contact"
+                        class="px-8 py-4 border-2 border-white text-white font-bold rounded-none hover:bg-white hover:text-campaign-blue transition duration-300 uppercase tracking-wider btn-animated">
+                        Join the Movement
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/70">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- 4. SPINNING WHEEL & STRATEGY SECTION -->
+    <section class="py-20 md:py-32 bg-gray-50 overflow-hidden relative">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+                <!-- Left: Animated Wheel -->
+                <div class="relative flex justify-center order-2 lg:order-1">
+                    <div id="strategy-wheel"
+                        class="wheel-container rounded-full border border-gray-200 bg-white shadow-2xl z-10">
+                        <!-- Center Hub -->
+                        <div
+                            class="absolute w-40 h-40 bg-campaign-blue rounded-full flex items-center justify-center text-white z-20 shadow-inner hover:scale-105 transition-transform duration-300 cursor-default">
+                            <div class="text-center">
+                                <i class="fa-solid fa-star text-2xl mb-1 text-campaign-green"></i>
+                                <span class="block font-display font-bold text-xl leading-none">VOTE<br>WARD</span>
+                            </div>
+                        </div>
+
+                        <!-- Rotating Words -->
+                        <div id="wheel-rotator" class="w-full h-full absolute top-0 left-0"></div>
+                    </div>
+                    <!-- Decorative blobs -->
+                    <div
+                        class="absolute -top-10 -left-10 w-64 h-64 bg-campaign-green/10 rounded-full blur-3xl -z-0 animate-pulse">
+                    </div>
+                </div>
+
+                <!-- Right: Content -->
+                <div class="order-1 lg:order-2">
+                    <div class="flex items-center gap-4 mb-6 gsap-fade-up">
+                        <img src="https://placehold.co/100x100/e2e8f0/0a4f80?text=Seal" alt="Sullivan County Seal"
+                            class="w-16 h-16 drop-shadow-md rounded-full border-2 border-white hover:rotate-12 transition-transform duration-500">
+                        <img src="https://placehold.co/100x100/e2e8f0/0a4f80?text=Map" alt="District Map"
+                            class="w-16 h-16 drop-shadow-md rounded-full border-2 border-white hover:scale-110 transition-transform duration-500">
+                    </div>
+
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-campaign-blue mb-6">
+                        <span class="reveal-mask"><span class="reveal-text section-reveal">A STRATEGY FOR</span></span>
+                        <span class="reveal-mask"><span
+                                class="text-campaign-green reveal-text section-reveal">ACTION</span></span>
+                    </h2>
+
+                    <div class="gsap-fade-up">
+                        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                            We aren't just running to hold a seat. We are running to set a standard. Every decision
+                            focuses on listening to the people, planning with precision, and delivering results that
+                            protect and grow Sullivan County.
+                        </p>
+                        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                            This isn't about politics as usual. It's about a comprehensive approach to governance that
+                            starts with listening to the residents of District 8 and ends with measurable improvements
+                            in our infrastructure, schools, and safety services. We need proactive leadership, not
+                            reactive politics.
+                        </p>
+                    </div>
+
+                    <a href="/pages/know-your-district"
+                        class="inline-flex items-center gap-2 text-campaign-blue font-bold uppercase tracking-wide border-b-2 border-campaign-green pb-1 hover:text-campaign-green hover:border-campaign-blue transition gsap-fade-up group">
+                        Explore the District Plan <i
+                            class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PUBLIC SAFETY SECTION -->
+    <section id="safety" class="py-24 bg-campaign-blue text-white relative overflow-hidden">
+        <!-- Animated Background Shape -->
+        <div id="safety-bg-shape"
+            class="absolute top-0 right-0 w-1/3 h-full bg-campaign-dark/30 hidden lg:block skew-x-12 transform origin-top translate-x-full transition-transform duration-1000">
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl">
+                <div
+                    class="inline-block px-3 py-1 border border-campaign-green text-campaign-green text-xs font-bold uppercase tracking-widest mb-4 rounded-sm gsap-fade-up">
+                    Priority #1
+                </div>
+                <h2 class="text-4xl md:text-6xl font-display font-bold mb-8 leading-tight">
+                    <span class="reveal-mask"><span class="reveal-text safety-reveal">SAFETY ISN’T
+                            POLITICAL.</span></span>
+                    <span class="reveal-mask"><span class="reveal-text safety-reveal text-campaign-green">IT’S
+                            PERSONAL.</span></span>
+                </h2>
+                <div class="grid md:grid-cols-2 gap-12 text-lg text-gray-200">
+                    <div class="gsap-fade-up delay-200">
+                        <p class="mb-6">
+                            More support for public safety means stronger funding for the Sullivan County Sheriff’s
+                            Department, better deputy retention, and actively recruiting the next generation of
+                            volunteer firefighters for Warriors Path VFD and Sullivan West VFD.
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check text-campaign-green mt-1"></i>
+                                <span>Modern equipment and competitive pay for deputies.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check text-campaign-green mt-1"></i>
+                                <span>Grant support for volunteer fire retention.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check text-campaign-green mt-1"></i>
+                                <span>Collaborative school safety initiatives.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex flex-col justify-center items-start gap-6 gsap-fade-up delay-300">
+                        <div>
+                            <span class="block text-3xl font-display font-bold text-white mb-2">Public Safety
+                                First.</span>
+                            <span class="block text-base text-gray-300">Our commitment to first responders is
+                                non-negotiable. They are the first line of defense for our families.</span>
+                        </div>
+                        <a href="/pages/public-safety"
+                            class="mt-2 px-8 py-3 bg-white text-campaign-blue font-bold rounded hover:bg-campaign-green hover:text-white transition duration-300 shadow-lg btn-animated">
+                            Explore Public Safety
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. HERO LINE / PARALLAX -->
+    <section id="hero-line"
+        class="py-32 bg-gray-100 flex items-center justify-center text-center relative overflow-hidden">
+        <div
+            class="absolute inset-0 opacity-5 bg-[radial-gradient(#0a4f80_1px,transparent_1px)] [background-size:16px_16px]">
+        </div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2
+                class="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-campaign-blue mb-6 leading-tight gsap-scale-up origin-center">
+                2026: DISTRICT 8 STARTS IT.<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-campaign-blue to-campaign-green">
+                    SULLIVAN COUNTY FEELS IT.
+                </span>
+            </h2>
+            <div class="max-w-3xl mx-auto gsap-fade-up">
+                <p class="text-xl md:text-2xl text-gray-600 font-medium mb-6">
+                    A movement powered by District 8, built for every family, every town, and every future in Sullivan
+                    County.
+                </p>
+                <p class="text-gray-500 leading-relaxed">
+                    Why now? Because our county is at a crossroads. We face unprecedented growth and new challenges that
+                    require experienced, steady hands. The decisions we make in 2026 will define the landscape of
+                    Sullivan County for the next decade. Be part of the solution.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. DISTRICT FEATURE SECTION -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div
+                class="bg-campaign-gray rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-10 shadow-inner hover:shadow-xl transition-shadow duration-500">
+                <div class="md:w-2/3">
+                    <h3 class="text-3xl md:text-4xl font-display font-bold text-campaign-blue mb-4">
+                        District 8: Where East Tennessee Shines
+                    </h3>
+                    <p class="text-gray-600 mb-6 text-lg">
+                        From the neighborhoods to the natural beauty, our district represents the heart of what makes
+                        Sullivan County great.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        District 8 is more than just a map boundary. It includes the vibrant communities surrounding
+                        Warriors Path State Park, the growing residential hubs, and the historic family farms that
+                        define our region. We need leadership that understands the unique balance of growth and
+                        preservation needed to keep our district thriving.
+                    </p>
+                    <a href="/pages/features-in-district-8"
+                        class="inline-block px-8 py-3 bg-campaign-blue text-white font-bold rounded hover:bg-campaign-green transition duration-300 shadow-md btn-animated">
+                        Features of District 8
+                    </a>
+                </div>
+                <div class="md:w-1/3 flex justify-center">
+                    <i
+                        class="fa-solid fa-map-location-dot text-8xl text-campaign-green opacity-80 hover:scale-110 hover:rotate-6 transition-all duration-500"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. QUOTE SLIDER -->
+    <section class="py-24 bg-white text-center">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <i class="fa-solid fa-quote-left text-4xl text-campaign-green mb-8 opacity-50 animate-bounce"></i>
+
+            <div class="relative h-48 overflow-hidden" id="quote-slider-container">
+                <!-- Slides handled by GSAP -->
+                <div id="quote-content" class="absolute inset-0 flex flex-col justify-center items-center px-4">
+                    <p class="text-xl md:text-2xl font-medium text-gray-800 italic mb-4 quote-text"></p>
+                    <p class="text-campaign-blue font-bold uppercase tracking-widest text-sm quote-author"></p>
+                </div>
+            </div>
+
+            <div class="flex justify-center gap-4 mt-8">
+                <button id="prev-quote"
+                    class="w-10 h-10 rounded-full border border-gray-300 text-campaign-blue hover:bg-campaign-blue hover:text-white transition transform hover:scale-110"><i
+                        class="fa-solid fa-chevron-left"></i></button>
+                <button id="next-quote"
+                    class="w-10 h-10 rounded-full border border-gray-300 text-campaign-blue hover:bg-campaign-blue hover:text-white transition transform hover:scale-110"><i
+                        class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. VOTE READY (PARALLAX BG) -->
+    <section class="py-32 relative text-white overflow-hidden">
+        <!-- Parallax BG Element -->
+        <div class="absolute inset-0 silhouette-bg" id="parallax-bg" style="height: 120%; top: -10%;"></div>
+
+        <div class="absolute inset-0 bg-gradient-to-t from-campaign-blue/90 to-campaign-blue/80"></div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-4xl md:text-5xl font-display font-bold mb-6 gsap-fade-up">BE VOTE-READY IN SULLIVAN COUNTY
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12 text-left mt-10">
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded border border-white/20 gsap-fade-up">
+                    <div class="text-4xl font-display font-bold text-campaign-green mb-2">01</div>
+                    <h4 class="font-bold text-xl mb-2">Check Status</h4>
+                    <p class="text-sm text-gray-200">Verify your current registration details are correct before the
+                        deadline.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded border border-white/20 gsap-fade-up delay-100">
+                    <div class="text-4xl font-display font-bold text-campaign-green mb-2">02</div>
+                    <h4 class="font-bold text-xl mb-2">Register</h4>
+                    <p class="text-sm text-gray-200">New to the county? Just turned 18? Get registered online or in
+                        person.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded border border-white/20 gsap-fade-up delay-200">
+                    <div class="text-4xl font-display font-bold text-campaign-green mb-2">03</div>
+                    <h4 class="font-bold text-xl mb-2">Vote</h4>
+                    <p class="text-sm text-gray-200">Mark your calendar for Early Voting and Election Day 2026.</p>
+                </div>
+            </div>
+
+            <p class="text-lg md:text-xl max-w-2xl mx-auto mb-10 text-gray-100 gsap-fade-up">
+                For accuracy, always confirm current deadlines, polling details, and registration status with official
+                election administrators.
+            </p>
+            <a href="/pages/register"
+                class="px-10 py-4 bg-campaign-green text-white font-bold text-lg rounded shadow-xl hover:bg-white hover:text-campaign-green transition duration-300 transform hover:-translate-y-1 inline-block btn-animated gsap-fade-up">
+                Get Vote-Ready
+            </a>
+        </div>
+    </section>
+
+    <!-- 10. DISCLAIMER & FOOTER -->
+    <div class="bg-gray-100 py-6 border-t border-gray-200">
+        <div class="container mx-auto px-6 flex justify-center">
+            <div class="bg-white border border-gray-300 px-6 py-4 rounded shadow-sm text-center max-w-2xl">
+                <p class="text-gray-800 font-bold uppercase text-xs md:text-sm tracking-widest">
+                    2026 Ward For Sullivan County Commision District 8. Paid for by Elect Ward For Sullivan County
+                    Commisoner 2026
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-campaign-dark text-white py-12 border-t border-gray-800">
+        <div class="container mx-auto px-6 grid md:grid-cols-4 gap-8">
+            <div class="col-span-1 md:col-span-2">
+                <h4 class="font-display font-bold text-2xl text-campaign-green mb-4">T.R. WARD</h4>
+                <p class="text-gray-400 text-sm leading-relaxed max-w-xs mb-4">
+                    Committed to the future of Sullivan County. Serving District 8 with integrity, transparency, and
+                    action.
+                </p>
+                <p class="text-gray-500 text-xs">
+                    &copy; 2026 T.R. Ward Campaign. All rights reserved.<br>
+                    Website designed for Sullivan County.
+                </p>
+                <div class="flex gap-4 mt-6">
+                    <a href="#"
+                        class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded hover:bg-campaign-blue hover:-translate-y-1 transition-all"><i
+                            class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"
+                        class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded hover:bg-campaign-blue hover:-translate-y-1 transition-all"><i
+                            class="fa-brands fa-twitter"></i></a>
+                    <a href="#"
+                        class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded hover:bg-campaign-blue hover:-translate-y-1 transition-all"><i
+                            class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="font-bold uppercase tracking-wider mb-4 text-xs text-gray-500">Navigation</h5>
+                <ul class="space-y-2 text-sm text-gray-300">
+                    <li><a href="/" class="hover:text-campaign-green transition">Home</a></li>
+                    <li><a href="/pages/why-im-running" class="hover:text-campaign-green transition">Why I'm Running</a>
+                    </li>
+                    <li><a href="/pages/district-map" class="hover:text-campaign-green transition">District Map</a></li>
+                    <li><a href="/pages/calendar" class="hover:text-campaign-green transition">Election Calendar</a>
+                    </li>
+                    <li><a href="/pages/contact" class="hover:text-campaign-green transition">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="font-bold uppercase tracking-wider mb-4 text-xs text-gray-500">Get Involved</h5>
+                <ul class="space-y-2 text-sm text-gray-300">
+                    <li><a href="/pages/register" class="hover:text-campaign-green transition">Register to Vote</a></li>
+                    <li><a href="#volunteer" class="hover:text-campaign-green transition">Volunteer</a></li>
+                    <li><a href="#donate" class="hover:text-campaign-green transition">Donate</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        // Initialize GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. ADVANCED PRELOADER & HEADER REVEAL
+        window.addEventListener("load", () => {
+            const tl = gsap.timeline();
+
+            // Text fade in/up
+            tl.to(".loader-text", { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" })
+                .to(".loader-text", { opacity: 0, y: -20, delay: 1.2, duration: 0.5 })
+                // Curtain slide up effect for preloader
+                .to("#preloader", {
+                    y: "-100%", duration: 0.8, ease: "power4.inOut", onComplete: () => {
+                        document.getElementById("preloader").style.visibility = "hidden";
+                    }
+                })
+                // Header slides down
+                .to("#main-header", { y: "0%", duration: 0.5, ease: "power2.out" }, "-=0.4")
+                // Hero stagger animations
+                .to(".hero-stagger", { opacity: 1, y: 0, stagger: 0.15, duration: 0.8, ease: "power2.out" }, "-=0.3")
+                // Masked Text Reveal (Main Headline)
+                .to(".hero-title-line", { y: "0%", opacity: 1, stagger: 0.15, duration: 1, ease: "power3.out" }, "-=1.0");
+        });
+
+        // 2. WHEEL GENERATION & ANIMATION
+        const words = ["Listen", "Plan", "Fix", "Build", "Deliver", "Protect", "Grow", "Lead"];
+        const wheel = document.getElementById("wheel-rotator");
+        const radius = 130;
+
+        words.forEach((word, index) => {
+            const el = document.createElement("div");
+            el.className = "wheel-text";
+            el.innerText = word;
+            const angle = (index / words.length) * 360;
+            el.style.transform = `rotate(${angle}deg) translateY(-${radius}px)`;
+            wheel.appendChild(el);
+        });
+
+        // Spin the wheel on scroll
+        gsap.to("#wheel-rotator", {
+            rotation: 360,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#strategy-wheel",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1
+            }
+        });
+
+        // 3. MASKED TEXT REVEALS (Axiom Style)
+        gsap.utils.toArray('.section-reveal').forEach(text => {
+            gsap.to(text, {
+                y: "0%",
+                opacity: 1,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: text,
+                    start: "top 85%",
+                }
+            });
+        });
+
+        gsap.utils.toArray('.safety-reveal').forEach(text => {
+            gsap.to(text, {
+                y: "0%",
+                opacity: 1,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#safety",
+                    start: "top 70%",
+                }
+            });
+        });
+
+        // 4. PUBLIC SAFETY BACKGROUND SHAPE SLIDE-IN
+        gsap.to("#safety-bg-shape", {
+            x: "0%",
+            scrollTrigger: {
+                trigger: "#safety",
+                start: "top 80%",
+                end: "top 20%",
+                scrub: 1
+            }
+        });
+
+        // 5. STANDARD FADE UPS
+        gsap.utils.toArray('.gsap-fade-up').forEach(element => {
+            gsap.from(element, {
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        // 6. HERO LINE SCALE EFFECT
+        gsap.from(".gsap-scale-up", {
+            scale: 0.8,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#hero-line",
+                start: "top 75%",
+            }
+        });
+
+        // 7. PARALLAX EFFECT (Vote Ready BG)
+        gsap.to("#parallax-bg", {
+            y: "10%", // Moves background slowly as user scrolls
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#parallax-bg",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // 8. ANIMATED QUOTE SLIDER
+        const quotes = [
+            { text: "District 8 deserves a voice that listens first and acts decisively. T.R. Ward is that voice.", author: "Local Business Owner" },
+            { text: "Safety, infrastructure, and smart growth. Ward's plan is exactly what we need.", author: "Community Leader" },
+            { text: "I've known T.R. for 20 years. He does what he says he's going to do.", author: "Sullivan County Resident" },
+            { text: "Finally, a roadmap for the future that respects our heritage.", author: "Volunteer Firefighter" },
+            { text: "The energy and vision we need for 2026.", author: "District 8 Voter" }
+        ];
+
+        let currentQuote = 0;
+        const quoteText = document.querySelector(".quote-text");
+        const quoteAuthor = document.querySelector(".quote-author");
+
+        function setQuote(index) {
+            quoteText.innerText = `"${quotes[index].text}"`;
+            quoteAuthor.innerText = `— ${quotes[index].author}`;
+        }
+
+        // Init
+        setQuote(0);
+
+        function changeQuote(direction) {
+            // Animate Out
+            const tl = gsap.timeline();
+            tl.to("#quote-content", { opacity: 0, y: 10, duration: 0.3 })
+                .call(() => {
+                    // Update Content
+                    if (direction === 'next') {
+                        currentQuote = (currentQuote + 1) % quotes.length;
+                    } else {
+                        currentQuote = (currentQuote - 1 + quotes.length) % quotes.length;
+                    }
+                    setQuote(currentQuote);
+                })
+                // Animate In
+                .to("#quote-content", { opacity: 1, y: 0, duration: 0.4, delay: 0.1 });
+        }
+
+        document.getElementById("next-quote").addEventListener("click", () => changeQuote('next'));
+        document.getElementById("prev-quote").addEventListener("click", () => changeQuote('prev'));
+
+        // Auto rotate
+        setInterval(() => changeQuote('next'), 6000);
+
+    </script>
+</body>
+
+</html>
